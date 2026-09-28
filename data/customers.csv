@@ -1,0 +1,7 @@
+id,name,email,loyalty_tier
+U01,Alice Smith,alice.smith@example.com,Gold
+U02,Bob Johnson,bob.johnson@example.com,Silver
+U03,Charlie Brown,charlie.brown@example.com,Platinum
+U04,Diana Prince,diana.prince@example.com,Bronze
+U05,Evan Wright,evan.wright@example.com,Gold
+U06,Banana,client.tropical@freshmail.org,VIP

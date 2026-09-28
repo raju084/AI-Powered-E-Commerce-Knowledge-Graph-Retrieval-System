@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Knowledge Graph & AI Retrieval Engine</title>
+  <meta name="description" content="AI-powered Knowledge Graph retrieval system for e-commerce with strict factual grounding and NetworkX graph traversal.">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Vis Network for Graph Visualizations -->
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header Bar -->
+    <header class="top-nav">
+      <div class="brand-section">
+        <div class="logo-badge">KG</div>
+        <div class="brand-text">
+          <h1>E-Commerce Knowledge Graph <span class="accent-badge">AI Retrieval</span></h1>
+          <p class="subtitle">Natural Language Question &rarr; LLM &rarr; Graph Query &rarr; Factual Grounding</p>
+        </div>
+      </div>
+      <div class="header-badges">
+        <div class="status-chip banana-chip" id="bananaBadge" title="Audited exact 5 occurrences across nodes">
+          <span class="banana-icon">&#127820;</span> Banana Requirement: <strong id="bananaCount">5 / 5 Verified</strong>
+        </div>
+        <div class="status-chip model-chip">
+          <span class="dot-indicator"></span> Engine: <strong id="activeModel">Detecting...</strong>
+        </div>
+        <div class="status-chip stats-chip">
+          Nodes: <strong id="totalNodes">0</strong> &bull; Edges: <strong id="totalEdges">0</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-layout">
+      <!-- Left Panel: Interactive Graph Visualizer -->
+      <section class="graph-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <h2>Interactive Graph Canvas</h2>
+            <span class="hint-text">Drag, zoom, and click nodes to inspect relationships</span>
+          </div>
+          <div class="graph-controls">
+            <button id="btnFitGraph" class="control-btn" title="Fit to Screen">Fit</button>
+            <button id="btnHighlightBanana" class="control-btn banana-btn" title="Highlight Banana Nodes">&#127820; Find 5 Bananas</button>
+            <button id="btnResetView" class="control-btn" title="Reset Physics">Reset</button>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend-bar">
+          <span class="legend-item"><span class="legend-dot dot-product"></span> Product</span>
+          <span class="legend-item"><span class="legend-dot dot-brand"></span> Brand</span>
+          <span class="legend-item"><span class="legend-dot dot-category"></span> Category</span>
+          <span class="legend-item"><span class="legend-dot dot-vendor"></span> Vendor</span>
+          <span class="legend-item"><span class="legend-dot dot-customer"></span> Customer</span>
+          <span class="legend-item"><span class="legend-dot dot-order"></span> Order</span>
+          <span class="legend-item"><span class="legend-dot dot-banana"></span> Banana (Exact 5)</span>
+        </div>
+
+        <div id="networkGraph" class="graph-canvas-container">
+          <div class="loading-overlay" id="graphLoading">
+            <div class="spinner"></div>
+            <span>Constructing Knowledge Graph...</span>
+          </div>
+        </div>
+
+        <!-- Node Inspector Bar -->
+        <div class="node-inspector" id="nodeInspector">
+          <span class="inspector-label">Selected Node:</span>
+          <span class="inspector-content" id="nodeDetails">Click any node in the graph to inspect properties and connected edges.</span>
+        </div>
+      </section>
+
+      <!-- Right Panel: AI Retrieval & Execution Flow -->
+      <section class="qa-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <h2>AI Graph Retrieval Pipeline</h2>
+            <span class="hint-text">Zero-hallucination answers strictly grounded in graph facts</span>
+          </div>
+        </div>
+
+        <!-- Benchmark Presets -->
+        <div class="sample-queries-section">
+          <label class="section-label">Sample Evaluation Questions:</label>
+          <div class="sample-chips" id="sampleChipsContainer">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Input Bar -->
+        <form id="queryForm" class="query-input-bar">
+          <input
+            type="text"
+            id="questionInput"
+            placeholder="Ask anything about products, brands, vendors, orders, customers, or bananas..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit" id="submitBtn" class="send-btn">
+            <span>Query Graph</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Pipeline Execution Flow Trace -->
+        <div class="pipeline-trace" id="pipelineTrace">
+          <div class="welcome-card" id="welcomeCard">
+            <div class="welcome-icon">&#128301;</div>
+            <h3>Ready for Natural Language Graph Queries</h3>
+            <p>Select any of the benchmark sample questions above or type your own question to see the 5-step retrieval pipeline execute in real time.</p>
+            <div class="flow-pill-row">
+              <span class="flow-step">1. User Question</span>
+              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-step">2. LLM Translation</span>
+              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-step">3. Graph Traversal</span>
+              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-step">4. Data Retrieval</span>
+              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-step">5. Grounded Answer</span>
+            </div>
+          </div>
+
+          <!-- Active Trace Cards (hidden until query runs) -->
+          <div class="trace-steps-container" id="traceContainer" style="display: none;">
+            <!-- Step 1: User Question -->
+            <div class="trace-step-card">
+              <div class="step-badge">Step 1</div>
+              <div class="step-content">
+                <h4>User Question</h4>
+                <div class="step-box" id="traceQuestion"></div>
+              </div>
+            </div>
+
+            <!-- Step 2: LLM Generated Graph Query -->
+            <div class="trace-step-card">
+              <div class="step-badge">Step 2</div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <h4>LLM &rarr; Generated Graph Query</h4>
+                  <span class="sub-badge" id="traceModelBadge">LLM</span>
+                </div>
+                <pre class="code-box" id="traceGraphQuery"></pre>
+              </div>
+            </div>
+
+            <!-- Step 3: Retrieved Graph Data & Facts -->
+            <div class="trace-step-card">
+              <div class="step-badge">Step 3</div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <h4>Retrieved Graph Facts</h4>
+                  <span class="count-tag" id="traceMatchCount">0 nodes</span>
+                </div>
+                <ul class="facts-list" id="traceFactsList"></ul>
+              </div>
+            </div>
+
+            <!-- Step 4: Final Grounded Answer -->
+            <div class="trace-step-card answer-card">
+              <div class="step-badge answer-badge">&#10003;</div>
+              <div class="step-content">
+                <div class="step-title-row">
+                  <h4>Final Grounded Answer</h4>
+                  <span class="grounded-badge" id="groundingBadge">
+                    <span class="check-icon">&#10003;</span> Strictly Grounded
+                  </span>
+                </div>
+                <div class="final-answer-box" id="traceFinalAnswer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

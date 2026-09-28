@@ -1,0 +1,324 @@
+[
+  {
+    "id": 1,
+    "title": "Canonical Assignment Example (Brand X supplied by Vendor Y)",
+    "question": "Which products from Brand TechCore are supplied by Vendor Apex Global Supplies?",
+    "graph_query": {
+      "target_entity": "Product",
+      "filters": {},
+      "traversal": [
+        {
+          "relation": "PRODUCED_BY",
+          "target_type": "Brand",
+          "target_name": "TechCore"
+        },
+        {
+          "relation": "SUPPLIED_BY",
+          "target_type": "Vendor",
+          "target_name": "Apex Global Supplies"
+        }
+      ]
+    },
+    "retrieved_nodes_count": 2,
+    "retrieved_nodes": [
+      {
+        "id": "Product:P07",
+        "entity_type": "Product",
+        "internal_id": "P07",
+        "name": "Smart Air Fryer Pro",
+        "price": 189.0,
+        "stock": 70
+      },
+      {
+        "id": "Product:P09",
+        "entity_type": "Product",
+        "internal_id": "P09",
+        "name": "Wireless Mechanical Keyboard",
+        "price": 129.0,
+        "stock": 95
+      }
+    ],
+    "facts": [
+      "Product 'Smart Air Fryer Pro' is connected via PRODUCED_BY to Brand 'TechCore'.",
+      "Product 'Smart Air Fryer Pro' is connected via SUPPLIED_BY to Vendor 'Apex Global Supplies'.",
+      "Node Product: 'Smart Air Fryer Pro' (entity_type=Product, name=Smart Air Fryer Pro, price=189.0, stock=70)",
+      "Product 'Wireless Mechanical Keyboard' is connected via PRODUCED_BY to Brand 'TechCore'.",
+      "Product 'Wireless Mechanical Keyboard' is connected via SUPPLIED_BY to Vendor 'Apex Global Supplies'.",
+      "Node Product: 'Wireless Mechanical Keyboard' (entity_type=Product, name=Wireless Mechanical Keyboard, price=129.0, stock=95)"
+    ],
+    "final_answer": "Based on the Knowledge Graph data, the matching products are:\n- 'Smart Air Fryer Pro' (ID: Product:P07, Price: $189.00)\n- 'Wireless Mechanical Keyboard' (ID: Product:P09, Price: $129.00)\n\nGraph Verification Facts:\n  * Product 'Smart Air Fryer Pro' is connected via PRODUCED_BY to Brand 'TechCore'.\n  * Product 'Smart Air Fryer Pro' is connected via SUPPLIED_BY to Vendor 'Apex Global Supplies'.\n  * Node Product: 'Smart Air Fryer Pro' (entity_type=Product, name=Smart Air Fryer Pro, price=189.0, stock=70)\n  * Product 'Wireless Mechanical Keyboard' is connected via PRODUCED_BY to Brand 'TechCore'.\n  * Product 'Wireless Mechanical Keyboard' is connected via SUPPLIED_BY to Vendor 'Apex Global Supplies'.\n  * Node Product: 'Wireless Mechanical Keyboard' (entity_type=Product, name=Wireless Mechanical Keyboard, price=129.0, stock=95)",
+    "grounded": true,
+    "model_used": "offline_semantic_engine"
+  },
+  {
+    "id": 2,
+    "title": "Exact 5-Banana Requirement Audit & Retrieval",
+    "question": "Find all entities in the knowledge graph named 'Banana' and explain how they are related.",
+    "graph_query": {
+      "target_entity": "All",
+      "filters": {
+        "name": "Banana"
+      },
+      "traversal": [],
+      "aggregation": "banana_entities"
+    },
+    "retrieved_nodes_count": 5,
+    "retrieved_nodes": [
+      {
+        "id": "Brand:B06",
+        "entity_type": "Brand",
+        "internal_id": "B06",
+        "name": "Banana",
+        "country": "Ecuador",
+        "rating": 4.9
+      },
+      {
+        "id": "Category:C06",
+        "entity_type": "Category",
+        "internal_id": "C06",
+        "name": "Banana",
+        "department": "Fresh Produce"
+      },
+      {
+        "id": "Vendor:V05",
+        "entity_type": "Vendor",
+        "internal_id": "V05",
+        "name": "Banana",
+        "country": "Costa Rica",
+        "lead_time_days": 2
+      },
+      {
+        "id": "Product:P11",
+        "entity_type": "Product",
+        "internal_id": "P11",
+        "name": "Banana",
+        "price": 1.49,
+        "stock": 500
+      },
+      {
+        "id": "Customer:U06",
+        "entity_type": "Customer",
+        "internal_id": "U06",
+        "name": "Banana",
+        "email": "client.tropical@freshmail.org",
+        "loyalty_tier": "VIP"
+      }
+    ],
+    "facts": [
+      "Knowledge Graph Audit: Found exactly 5 occurrences of 'Banana' across graph nodes.",
+      "Retrieved Banana Entity [Brand]: ID=Brand:B06, name='Banana'.",
+      "  -> Brand 'Banana' has relation 'OFFERS_PRODUCT' to Product 'Banana'",
+      "Retrieved Banana Entity [Category]: ID=Category:C06, name='Banana'.",
+      "  -> Category 'Banana' has relation 'HAS_PRODUCT' to Product 'Banana'",
+      "Retrieved Banana Entity [Vendor]: ID=Vendor:V05, name='Banana'.",
+      "  -> Vendor 'Banana' has relation 'SUPPLIES_PRODUCT' to Product 'Banana'",
+      "Retrieved Banana Entity [Product]: ID=Product:P11, name='Banana'.",
+      "  -> Product 'Banana' has relation 'PRODUCED_BY' to Brand 'Banana'",
+      "  -> Product 'Banana' has relation 'BELONGS_TO' to Category 'Banana'",
+      "  -> Product 'Banana' has relation 'SUPPLIED_BY' to Vendor 'Banana'",
+      "  -> Product 'Banana' has relation 'APPEARS_IN_ORDER' to Order 'Order O06'",
+      "Retrieved Banana Entity [Customer]: ID=Customer:U06, name='Banana'.",
+      "  -> Customer 'Banana' has relation 'MADE_ORDER' to Order 'Order O06'"
+    ],
+    "final_answer": "Retrieved from the Knowledge Graph: Exactly 5 entities named 'Banana' were found across the graph:\n1. Brand: 'Banana' (ID: Brand:B06)\n2. Category: 'Banana' (ID: Category:C06)\n3. Vendor: 'Banana' (ID: Vendor:V05)\n4. Product: 'Banana' (ID: Product:P11)\n5. Customer: 'Banana' (ID: Customer:U06)\n\nRelationships in Graph:\n- Product 'Banana' (P11) belongs to Category 'Banana' (C06), is produced by Brand 'Banana' (B06), and is supplied by Vendor 'Banana' (V05).\n- Customer 'Banana' (U06) placed Order O06 containing 10x Product 'Banana'.\nAll 5 'Banana' nodes are interconnected within the Knowledge Graph.",
+    "grounded": true,
+    "model_used": "offline_semantic_engine"
+  },
+  {
+    "id": 3,
+    "title": "Multi-Hop Traversal (Highest Value Order + Customer + Products)",
+    "question": "Which customer placed the highest value order, and what products were included in that order?",
+    "graph_query": {
+      "target_entity": "Order",
+      "filters": {},
+      "traversal": [],
+      "aggregation": "max_order_value"
+    },
+    "retrieved_nodes_count": 4,
+    "retrieved_nodes": [
+      {
+        "id": "Order:O01",
+        "entity_type": "Order",
+        "internal_id": "O01",
+        "name": "Order O01",
+        "order_date": "2026-03-01",
+        "total_amount": 2748.0,
+        "status": "DELIVERED"
+      },
+      {
+        "id": "Customer:U01",
+        "entity_type": "Customer",
+        "internal_id": "U01",
+        "name": "Alice Smith",
+        "email": "alice.smith@example.com",
+        "loyalty_tier": "Gold"
+      },
+      {
+        "id": "Product:P01",
+        "entity_type": "Product",
+        "internal_id": "P01",
+        "name": "MacBook Pro 16",
+        "price": 2499.0,
+        "stock": 45
+      },
+      {
+        "id": "Product:P05",
+        "entity_type": "Product",
+        "internal_id": "P05",
+        "name": "AirPods Pro 2",
+        "price": 249.0,
+        "stock": 110
+      }
+    ],
+    "facts": [
+      "Highest value order is Order O01 with total amount $2748.00 on 2026-03-01.",
+      "Order was placed by Customer 'Alice Smith' (Email: alice.smith@example.com, Tier: Gold).",
+      "Order contains 1x Product 'MacBook Pro 16' at $2499.00 each.",
+      "Order contains 1x Product 'AirPods Pro 2' at $249.00 each."
+    ],
+    "final_answer": "Highest value order is Order O01 with total amount $2748.00 on 2026-03-01.\nOrder was placed by Customer 'Alice Smith' (Email: alice.smith@example.com, Tier: Gold).\nOrder contains 1x Product 'MacBook Pro 16' at $2499.00 each.\nOrder contains 1x Product 'AirPods Pro 2' at $249.00 each.",
+    "grounded": true,
+    "model_used": "offline_semantic_engine"
+  },
+  {
+    "id": 4,
+    "title": "Brand-to-Vendor Relationship Query",
+    "question": "Which products from Brand Apple are supplied by Vendor Foxconn Logistics?",
+    "graph_query": {
+      "target_entity": "Product",
+      "filters": {},
+      "traversal": [
+        {
+          "relation": "PRODUCED_BY",
+          "target_type": "Brand",
+          "target_name": "Apple"
+        },
+        {
+          "relation": "SUPPLIED_BY",
+          "target_type": "Vendor",
+          "target_name": "Foxconn Logistics"
+        }
+      ]
+    },
+    "retrieved_nodes_count": 2,
+    "retrieved_nodes": [
+      {
+        "id": "Product:P01",
+        "entity_type": "Product",
+        "internal_id": "P01",
+        "name": "MacBook Pro 16",
+        "price": 2499.0,
+        "stock": 45
+      },
+      {
+        "id": "Product:P02",
+        "entity_type": "Product",
+        "internal_id": "P02",
+        "name": "iPhone 15 Pro",
+        "price": 1199.0,
+        "stock": 80
+      }
+    ],
+    "facts": [
+      "Product 'MacBook Pro 16' is connected via PRODUCED_BY to Brand 'Apple'.",
+      "Product 'MacBook Pro 16' is connected via SUPPLIED_BY to Vendor 'Foxconn Logistics'.",
+      "Node Product: 'MacBook Pro 16' (entity_type=Product, name=MacBook Pro 16, price=2499.0, stock=45)",
+      "Product 'iPhone 15 Pro' is connected via PRODUCED_BY to Brand 'Apple'.",
+      "Product 'iPhone 15 Pro' is connected via SUPPLIED_BY to Vendor 'Foxconn Logistics'.",
+      "Node Product: 'iPhone 15 Pro' (entity_type=Product, name=iPhone 15 Pro, price=1199.0, stock=80)"
+    ],
+    "final_answer": "Based on the Knowledge Graph data, the matching products are:\n- 'MacBook Pro 16' (ID: Product:P01, Price: $2499.00)\n- 'iPhone 15 Pro' (ID: Product:P02, Price: $1199.00)\n\nGraph Verification Facts:\n  * Product 'MacBook Pro 16' is connected via PRODUCED_BY to Brand 'Apple'.\n  * Product 'MacBook Pro 16' is connected via SUPPLIED_BY to Vendor 'Foxconn Logistics'.\n  * Node Product: 'MacBook Pro 16' (entity_type=Product, name=MacBook Pro 16, price=2499.0, stock=45)\n  * Product 'iPhone 15 Pro' is connected via PRODUCED_BY to Brand 'Apple'.\n  * Product 'iPhone 15 Pro' is connected via SUPPLIED_BY to Vendor 'Foxconn Logistics'.\n  * Node Product: 'iPhone 15 Pro' (entity_type=Product, name=iPhone 15 Pro, price=1199.0, stock=80)",
+    "grounded": true,
+    "model_used": "offline_semantic_engine"
+  },
+  {
+    "id": 5,
+    "title": "Customer Purchase & Order History (Banana Customer)",
+    "question": "What orders were placed by Customer 'Banana' and which items did they buy?",
+    "graph_query": {
+      "target_entity": "Order",
+      "filters": {},
+      "traversal": [
+        {
+          "relation": "PLACED_BY",
+          "target_type": "Customer",
+          "target_name": "Banana"
+        }
+      ]
+    },
+    "retrieved_nodes_count": 1,
+    "retrieved_nodes": [
+      {
+        "id": "Order:O06",
+        "entity_type": "Order",
+        "internal_id": "O06",
+        "name": "Order O06",
+        "order_date": "2026-03-20",
+        "total_amount": 14.9,
+        "status": "DELIVERED"
+      }
+    ],
+    "facts": [
+      "Order 'Order O06' is connected via PLACED_BY to Customer 'Banana'.",
+      "Node Order: 'Order O06' (entity_type=Order, name=Order O06, order_date=2026-03-20, total_amount=14.9, status=DELIVERED)",
+      "Order 'Order O06' CONTAINS_ITEM: 10x Product 'Banana' at $1.49 each."
+    ],
+    "final_answer": "Based on the Knowledge Graph data:\n- Order 'Order O06' is connected via PLACED_BY to Customer 'Banana'.\n- Node Order: 'Order O06' (entity_type=Order, name=Order O06, order_date=2026-03-20, total_amount=14.9, status=DELIVERED)\n- Order 'Order O06' CONTAINS_ITEM: 10x Product 'Banana' at $1.49 each.",
+    "grounded": true,
+    "model_used": "offline_semantic_engine"
+  },
+  {
+    "id": 6,
+    "title": "Vendor Supply Portfolio & Pricing",
+    "question": "What products are supplied by Vendor Pacific Freight Partners and what are their prices?",
+    "graph_query": {
+      "target_entity": "Product",
+      "filters": {},
+      "traversal": [
+        {
+          "relation": "SUPPLIED_BY",
+          "target_type": "Vendor",
+          "target_name": "Pacific Freight Partners"
+        }
+      ]
+    },
+    "retrieved_nodes_count": 3,
+    "retrieved_nodes": [
+      {
+        "id": "Product:P05",
+        "entity_type": "Product",
+        "internal_id": "P05",
+        "name": "AirPods Pro 2",
+        "price": 249.0,
+        "stock": 110
+      },
+      {
+        "id": "Product:P06",
+        "entity_type": "Product",
+        "internal_id": "P06",
+        "name": "WH-1000XM5 Headphones",
+        "price": 399.0,
+        "stock": 40
+      },
+      {
+        "id": "Product:P10",
+        "entity_type": "Product",
+        "internal_id": "P10",
+        "name": "Ultra-Quiet Humidifier",
+        "price": 79.0,
+        "stock": 50
+      }
+    ],
+    "facts": [
+      "Product 'AirPods Pro 2' is connected via SUPPLIED_BY to Vendor 'Pacific Freight Partners'.",
+      "Node Product: 'AirPods Pro 2' (entity_type=Product, name=AirPods Pro 2, price=249.0, stock=110)",
+      "Product 'WH-1000XM5 Headphones' is connected via SUPPLIED_BY to Vendor 'Pacific Freight Partners'.",
+      "Node Product: 'WH-1000XM5 Headphones' (entity_type=Product, name=WH-1000XM5 Headphones, price=399.0, stock=40)",
+      "Product 'Ultra-Quiet Humidifier' is connected via SUPPLIED_BY to Vendor 'Pacific Freight Partners'.",
+      "Node Product: 'Ultra-Quiet Humidifier' (entity_type=Product, name=Ultra-Quiet Humidifier, price=79.0, stock=50)"
+    ],
+    "final_answer": "Based on the Knowledge Graph data, the matching products are:\n- 'AirPods Pro 2' (ID: Product:P05, Price: $249.00)\n- 'WH-1000XM5 Headphones' (ID: Product:P06, Price: $399.00)\n- 'Ultra-Quiet Humidifier' (ID: Product:P10, Price: $79.00)\n\nGraph Verification Facts:\n  * Product 'AirPods Pro 2' is connected via SUPPLIED_BY to Vendor 'Pacific Freight Partners'.\n  * Node Product: 'AirPods Pro 2' (entity_type=Product, name=AirPods Pro 2, price=249.0, stock=110)\n  * Product 'WH-1000XM5 Headphones' is connected via SUPPLIED_BY to Vendor 'Pacific Freight Partners'.\n  * Node Product: 'WH-1000XM5 Headphones' (entity_type=Product, name=WH-1000XM5 Headphones, price=399.0, stock=40)\n  * Product 'Ultra-Quiet Humidifier' is connected via SUPPLIED_BY to Vendor 'Pacific Freight Partners'.\n  * Node Product: 'Ultra-Quiet Humidifier' (entity_type=Product, name=Ultra-Quiet Humidifier, price=79.0, stock=50)",
+    "grounded": true,
+    "model_used": "offline_semantic_engine"
+  }
+]

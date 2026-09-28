@@ -1,0 +1,12 @@
+id,name,price,brand_id,category_id,vendor_id,stock
+P01,MacBook Pro 16,2499.0,B01,C01,V01,45
+P02,iPhone 15 Pro,1199.0,B01,C01,V01,80
+P03,Galaxy S24 Ultra,1299.0,B02,C01,V02,60
+P04,OLED 4K Smart TV,1499.0,B03,C05,V02,25
+P05,AirPods Pro 2,249.0,B01,C02,V03,110
+P06,WH-1000XM5 Headphones,399.0,B03,C02,V03,40
+P07,Smart Air Fryer Pro,189.0,B04,C03,V02,70
+P08,Ergonomic Office Chair,349.0,B05,C04,V04,30
+P09,Wireless Mechanical Keyboard,129.0,B04,C01,V02,95
+P10,Ultra-Quiet Humidifier,79.0,B04,C03,V03,50
+P11,Banana,1.49,B06,C06,V05,500
