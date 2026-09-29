@@ -8,8 +8,8 @@ import sys
 import json
 import argparse
 from typing import List, Dict, Any
-from src.pipeline import KnowledgeGraphPipeline
-from src.dataset import export_sample_data
+from backend.pipeline import KnowledgeGraphPipeline
+from backend.dataset import export_sample_data
 
 
 SAMPLE_QUESTIONS = [

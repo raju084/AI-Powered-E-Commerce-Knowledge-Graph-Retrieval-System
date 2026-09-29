@@ -6,7 +6,7 @@ and establishes directed relationships between them.
 
 from typing import Dict, Any, List, Optional, Tuple, Set
 import networkx as nx
-from src.dataset import load_dataset
+from backend.dataset import load_dataset
 
 
 class EcommerceKnowledgeGraph:

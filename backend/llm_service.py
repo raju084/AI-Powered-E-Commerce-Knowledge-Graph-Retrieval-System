@@ -15,10 +15,20 @@ import os
 import json
 import re
 import warnings
+import logging
 from typing import Dict, Any, Tuple, Optional
 from dotenv import load_dotenv
 
 warnings.filterwarnings("ignore")
+logging.getLogger("google").setLevel(logging.ERROR)
+logging.getLogger("google.genai").setLevel(logging.ERROR)
+
+try:
+    from google.genai import models as google_genai_models
+    google_genai_models.Models._logged_afc_warning = True
+except Exception:
+    pass
+
 load_dotenv()
 
 
@@ -92,31 +102,29 @@ class LLMService:
         self.active_provider = self._determine_provider()
 
     def _determine_provider(self) -> str:
+        if os.getenv("TESTING") == "1":
+            return "offline_semantic_engine"
+
         global _GEMINI_PROBED, _GEMINI_WORKING
         if self.gemini_key:
             if _GEMINI_PROBED is not None:
-                return "gemini" if _GEMINI_WORKING else "offline_semantic_engine"
+                if _GEMINI_WORKING:
+                    return "gemini"
+                # Gemini previously failed — fall through to other providers
+            else:
+                _GEMINI_PROBED = True
+                # Validate Gemini key connectivity once per session
+                try:
+                    from google import genai
+                    client = genai.Client(api_key=self.gemini_key)
+                    client.models.generate_content(model="gemini-2.0-flash", contents="Ping")
+                    _GEMINI_WORKING = True
+                    return "gemini"
+                except Exception:
+                    _GEMINI_WORKING = False
+                    # Fall through to next available provider
 
-            _GEMINI_PROBED = True
-            # Validate Gemini key connectivity once per session
-            try:
-                from google import genai
-                client = genai.Client(api_key=self.gemini_key)
-                client.models.generate_content(model="gemini-3.8-flash", contents="Ping")
-                _GEMINI_WORKING = True
-                return "gemini"
-            except Exception as e:
-                _GEMINI_WORKING = False
-                err_msg = str(e)
-                if "403" in err_msg or "PERMISSION_DENIED" in err_msg:
-                    print("[LLM Notice] Gemini API key returned 403 PERMISSION_DENIED (cloud project access restricted).")
-                    print("             Seamlessly using built-in Deterministic Semantic Engine for 100% test reliability.\n")
-                elif "404" in err_msg or "NOT_FOUND" in err_msg:
-                    print("[LLM Notice] Gemini model unavailable. Seamlessly using Deterministic Semantic Engine.\n")
-                else:
-                    print(f"[LLM Notice] Gemini initialization probe: {e}. Using Deterministic Semantic Engine.\n")
-                return "offline_semantic_engine"
-        elif self.openai_key:
+        if self.openai_key:
             return "openai"
         elif self.groq_key:
             return "groq"

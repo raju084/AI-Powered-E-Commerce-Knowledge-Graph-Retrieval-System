@@ -19,11 +19,11 @@ Final Answer + Grounding Verification
 
 import time
 from typing import Dict, Any, Optional
-from src.knowledge_graph import EcommerceKnowledgeGraph
-from src.query_engine import GraphQueryEngine
-from src.retriever import GraphRetriever
-from src.llm_service import LLMService
-from src.models import PipelineResponse
+from backend.knowledge_graph import EcommerceKnowledgeGraph
+from backend.query_engine import GraphQueryEngine
+from backend.retriever import GraphRetriever
+from backend.llm_service import LLMService
+from backend.models import PipelineResponse
 
 
 class KnowledgeGraphPipeline:

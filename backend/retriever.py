@@ -5,8 +5,8 @@ output statements are strictly substantiated by retrieved graph nodes and edges.
 """
 
 from typing import Dict, Any, List, Tuple
-from src.models import RetrievalResult
-from src.query_engine import GraphQueryEngine
+from backend.models import RetrievalResult
+from backend.query_engine import GraphQueryEngine
 
 
 class GraphRetriever:

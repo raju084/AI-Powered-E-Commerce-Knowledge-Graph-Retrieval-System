@@ -5,8 +5,8 @@ and sub-graph extraction for factual grounding.
 """
 
 from typing import Dict, Any, List, Optional
-from src.knowledge_graph import EcommerceKnowledgeGraph
-from src.models import RetrievalResult
+from backend.knowledge_graph import EcommerceKnowledgeGraph
+from backend.models import RetrievalResult
 
 
 class GraphQueryEngine:

@@ -1,8 +1,28 @@
+# Python
 __pycache__/
 *.pyc
 *.pyo
-.env
+*.pyd
 .venv/
 venv/
 .pytest_cache/
 *.egg-info/
+
+# Environment / Secrets
+.env
+.env.local
+.env.*.local
+
+# Generated data files
+data/
+sample_results.json
+
+# Node / React
+frontend/node_modules/
+frontend/dist/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

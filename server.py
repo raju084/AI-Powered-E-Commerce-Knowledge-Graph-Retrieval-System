@@ -8,9 +8,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
 from pydantic import BaseModel
-from src.pipeline import KnowledgeGraphPipeline
+from backend.pipeline import KnowledgeGraphPipeline
 from main import SAMPLE_QUESTIONS
 
+
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="E-Commerce Knowledge Graph & AI Retrieval System",
@@ -18,13 +20,27 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Enable CORS for React Frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Initialize Pipeline
 pipeline = KnowledgeGraphPipeline()
 
-# Serve static files
+# Serve React Vite static build files if available, fallback to web static
 current_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_dist = os.path.join(current_dir, "frontend", "dist")
+frontend_assets = os.path.join(frontend_dist, "assets")
 web_dir = os.path.join(current_dir, "web")
 static_dir = os.path.join(web_dir, "static")
+
+if os.path.exists(frontend_assets):
+    app.mount("/assets", StaticFiles(directory=frontend_assets), name="assets")
 
 if os.path.exists(static_dir):
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
@@ -36,10 +52,16 @@ class QueryRequest(BaseModel):
 
 @app.get("/", response_class=HTMLResponse)
 async def serve_index():
+    react_index = os.path.join(frontend_dist, "index.html")
+    if os.path.exists(react_index):
+        with open(react_index, "r", encoding="utf-8") as f:
+            return f.read()
+
     index_file = os.path.join(web_dir, "templates", "index.html")
     if os.path.exists(index_file):
         with open(index_file, "r", encoding="utf-8") as f:
             return f.read()
+
     return "<h1>Knowledge Graph Web Dashboard (Template missing)</h1>"
 
 
